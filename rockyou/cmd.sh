@@ -1,0 +1,1 @@
+tar -zcvf rk_up.tar.gz update.sh

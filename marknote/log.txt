@@ -1,0 +1,6 @@
+inject markdown image function
+```
+### Encryption
+![1](include/user.php)
+```
+and get base64 encoded files from html code

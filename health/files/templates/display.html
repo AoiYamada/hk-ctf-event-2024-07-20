@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Management Mini Program - Health Indicator Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4caf50;
+            margin-bottom: 30px;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .button {
+            background-color: #4caf50;
+            color: #ffffff;
+            border: none;
+            padding: 15px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Health Management Mini Program - Health Indicator Report</h1>
+        <div id="result">
+            name:{{ username }}<br>
+            Your BMI:{{ bmi }}<br>
+            Your body fat percentage:{{ bfm }}%<br>
+            Ideal weight:{{ ideal_weight }} kg<br>
+            Waistline:{{ waist }} cm<br>
+        </div>
+        <center>{{ update }}</center><br>
+        <button class="button" onclick="goBack()">back</button>
+
+        <script>
+            function goBack() {
+                window.location.href = "/reset/";
+            }
+        </script>
+    </div>
+</body>
+
+</html>

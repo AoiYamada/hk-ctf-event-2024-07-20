@@ -1,0 +1,11 @@
+by quest title, guess .git folder exposed
+checked, it is
+
+found a git diff has a `dha9hd8192dh9hf12bf89qh2198hr.php` which eval request body
+construct post body
+```
+echo file_get_contents("/flag");
+```
+to get the flag
+
+patch is strict forward, remove the file and .git folder.
